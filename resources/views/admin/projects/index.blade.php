@@ -26,7 +26,9 @@
               <td> <a class="btn btn-small btn-primary" href="{{ route('admin.projects.show', $project->id) }}"><i class="fa-solid fa-eye"></i></a> </td>
             </tr> 
             @empty
-                
+            <tr>
+                <th scope="row" colspan="5" class="text-center">Non ci sono progetti</th>
+            </tr> 
             @endforelse
           
         </tbody>
