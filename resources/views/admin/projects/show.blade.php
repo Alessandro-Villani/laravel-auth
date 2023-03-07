@@ -18,7 +18,13 @@
         </div>
     </div>
     <div class="buttons d-flex justify-content-end">
-        <a class="btn btn-secondary me-2" href="{{ route('admin.projects.index') }}">INDIETRO</a>
+        <a class="btn btn-small btn-warning me-2" href="{{ route('admin.projects.edit', $project->id) }}">Edit</a>
+        <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST">
+            @method('DELETE')
+            @csrf
+            <button class="btn btn-small btn-danger me-2">Delete</button>
+        </form>
+        <a class="btn btn-small btn-primary me-2" href="{{ route('admin.projects.index') }}">Back</a>
     </div>
 </div>
 

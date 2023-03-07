@@ -19,11 +19,19 @@
         <tbody>
             @forelse ($projects as $project)
             <tr>
-              <th scope="row">{{ $project->id }}</th>
-              <td>{{ $project->name }}</td>
-              <td>{{ $project->created_at }}</td>
-              <td>{{ $project->updated_at }}</td>
-              <td> <a class="btn btn-small btn-primary" href="{{ route('admin.projects.show', $project->id) }}"><i class="fa-solid fa-eye"></i></a> </td>
+                <th scope="row">{{ $project->id }}</th>
+                <td>{{ $project->name }}</td>
+                <td>{{ $project->created_at }}</td>
+                <td>{{ $project->updated_at }}</td>
+                <td> 
+                    <a class="btn btn-small btn-primary" href="{{ route('admin.projects.show', $project->id) }}"><i class="fa-solid fa-eye"></i></a> 
+                    <a class="btn btn-small btn-warning" href="{{ route('admin.projects.edit', $project->id) }}"><i class="fa-regular fa-pen-to-square"></i></a>
+                    <form class="d-inline" action="{{ route('admin.projects.destroy', $project->id) }}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button class="btn btn-small btn-danger"><i class="fa-regular fa-trash-can"></i></button>
+                    </form>
+                </td>
             </tr> 
             @empty
             <tr>
@@ -32,7 +40,11 @@
             @endforelse
           
         </tbody>
-      </table>
+    </table>
+
+    <div class="buttons d-flex justify-content-end">
+        <a href="{{ route('admin.projects.create') }}" class="btn btn-small btn-success"><i class="fa-solid fa-plus"></i></a>
+    </div>
 
 </div>
     
