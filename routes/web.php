@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\ProjectController;
 use App\Http\Controllers\admin\HomeController as AdminHomeController;
 use App\Http\Controllers\guest\HomeController as GuestHomeController;
 use App\Http\Controllers\ProfileController;
@@ -20,6 +21,8 @@ Route::get('/', [GuestHomeController::class, 'index'])->name('guest.home');
 
 Route::middleware(['auth', 'verified'])->name('admin.')->prefix('/admin')->group(function () {
     Route::get('/', [AdminHomeController::class, 'index'])->name('home');
+
+    Route::resource('projects', ProjectController::class);
 });
 
 
