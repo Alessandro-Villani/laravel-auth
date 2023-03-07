@@ -23,7 +23,7 @@
               <td>{{ $project->name }}</td>
               <td>{{ $project->created_at }}</td>
               <td>{{ $project->updated_at }}</td>
-              <td> <a class="btn btn-small btn-warning" href="{{ route('admin.projects.show', $project->id) }}">Edit</a> </td>
+              <td> <a class="btn btn-small btn-primary" href="{{ route('admin.projects.show', $project->id) }}"><i class="fa-solid fa-eye"></i></a> </td>
             </tr> 
             @empty
                 
