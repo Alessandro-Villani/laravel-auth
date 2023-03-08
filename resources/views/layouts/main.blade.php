@@ -29,6 +29,7 @@
         
 
         <main class="">
+            @include('includes.alerts.session')
             @yield('content')
         </main>
 
