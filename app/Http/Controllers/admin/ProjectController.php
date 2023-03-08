@@ -54,16 +54,18 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show(int $id)
     {
+        $project = Project::withTrashed()->findOrFail($id);
         return view('admin.projects.show', compact('project'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project)
+    public function edit(int $id)
     {
+        $project = Project::withTrashed()->findOrFail($id);
         return view('admin.projects.edit', compact('project'));
     }
 
@@ -94,5 +96,12 @@ class ProjectController extends Controller
         $project->delete();
 
         return to_route('admin.projects.index')->with('message', "Il progetto <strong>" . strtoupper($project->name) . "</strong> è stato eliminato con successo")->with('type', 'success');
+    }
+
+    public function trash()
+    {
+        $projects = Project::onlyTrashed()->get();
+
+        return view('admin.projects.trash.index', compact('projects'));
     }
 }
