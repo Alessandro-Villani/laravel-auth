@@ -26,7 +26,7 @@
                 <td> 
                     <a class="btn btn-small btn-primary" href="{{ route('admin.projects.show', $project->id) }}"><i class="fa-solid fa-eye"></i></a> 
                     <a class="btn btn-small btn-warning" href="{{ route('admin.projects.edit', $project->id) }}"><i class="fa-regular fa-pen-to-square"></i></a>
-                    <form class="d-inline" action="{{ route('admin.projects.destroy', $project->id) }}" method="POST">
+                    <form class="d-inline delete-form" action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" data-project-name="{{ $project->name }}">
                         @method('DELETE')
                         @csrf
                         <button class="btn btn-small btn-danger"><i class="fa-regular fa-trash-can"></i></button>
@@ -45,6 +45,8 @@
     <div class="buttons d-flex justify-content-end">
         <a href="{{ route('admin.projects.create') }}" class="btn btn-small btn-success"><i class="fa-solid fa-plus"></i></a>
     </div>
+
+    @include('includes.projects.delete-modal')
 
 </div>
     

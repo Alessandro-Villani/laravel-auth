@@ -19,7 +19,7 @@
     </div>
     <div class="buttons d-flex justify-content-end">
         <a class="btn btn-small btn-warning me-2" href="{{ route('admin.projects.edit', $project->id) }}">Edit</a>
-        <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST">
+        <form class="delete-form" action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" data-project-name="{{ $project->name }}">
             @method('DELETE')
             @csrf
             <button class="btn btn-small btn-danger me-2">Delete</button>
@@ -28,4 +28,7 @@
     </div>
 </div>
 
+@include('includes.projects.delete-modal')
+
 @endsection
+

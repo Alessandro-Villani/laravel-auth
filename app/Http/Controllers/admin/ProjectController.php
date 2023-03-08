@@ -48,7 +48,7 @@ class ProjectController extends Controller
         $new_project->fill($data);
         $new_project->save();
 
-        return to_route('admin.projects.show', $new_project->id);
+        return to_route('admin.projects.show', $new_project->id)->with('message', "Il progetto <strong>" . strtoupper($new_project->name) . "</strong> è stato aggiunto con successo")->with('type', 'success');
     }
 
     /**
@@ -83,7 +83,7 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->save();
 
-        return to_route('admin.projects.show', $project->id);
+        return to_route('admin.projects.show', $project->id)->with('message', "Il progetto <strong>" . strtoupper($project->name) . "</strong> è stato modificato con successo")->with('type', 'success');
     }
 
     /**
@@ -93,6 +93,6 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return to_route('admin.projects.index')->with('message', "Il progetto $project->title è stato eliminato con successo");
+        return to_route('admin.projects.index')->with('message', "Il progetto <strong>" . strtoupper($project->name) . "</strong> è stato eliminato con successo")->with('type', 'success');
     }
 }
