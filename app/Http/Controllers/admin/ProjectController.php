@@ -76,7 +76,7 @@ class ProjectController extends Controller
             'name' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
             'description' => 'required|string',
             'project_url' => 'required|url',
-            'image_url' => 'url'
+            'image_url' => 'url|nullable'
         ]);
 
         $data = $request->all();
