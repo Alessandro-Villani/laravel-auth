@@ -19,11 +19,11 @@
         <tbody>
             @forelse ($projects as $project)
             <tr>
-                <th scope="row">{{ $project->id }}</th>
-                <td>{{ $project->name }}</td>
-                <td>{{ $project->created_at }}</td>
-                <td>{{ $project->updated_at }}</td>
-                <td> 
+                <th class="align-middle" scope="row">{{ $project->id }}</th>
+                <td class="align-middle">{{ $project->name }}</td>
+                <td class="align-middle">{{ $project->created_at }}</td>
+                <td class="align-middle">{{ $project->updated_at }}</td>
+                <td class="align-middle"> 
                     <a class="btn btn-small btn-primary" href="{{ route('admin.projects.show', $project->id) }}"><i class="fa-solid fa-eye"></i></a> 
                     <a class="btn btn-small btn-warning" href="{{ route('admin.projects.edit', $project->id) }}"><i class="fa-regular fa-pen-to-square"></i></a>
                     <form class="d-inline delete-form" action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" data-project-name="{{ $project->name }}">
