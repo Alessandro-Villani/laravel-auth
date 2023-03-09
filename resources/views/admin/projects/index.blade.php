@@ -42,10 +42,12 @@
         </tbody>
     </table>
 
-    <div class="buttons d-flex justify-content-end">
+    <div class="buttons d-flex justify-content-end mb-5">
         <a href="{{ route('admin.projects.trash.index') }}" class="btn btn-small btn-secondary me-2"><i class="fa-solid fa-trash-can"></i></a>
         <a href="{{ route('admin.projects.create') }}" class="btn btn-small btn-success"><i class="fa-solid fa-plus"></i></a>
     </div>
+
+    <div class="offset-9 col-3" >{{ $projects->links() }}</div>
 
     @include('includes.projects.delete-modal')
 
