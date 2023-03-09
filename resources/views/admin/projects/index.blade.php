@@ -11,7 +11,16 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Project Name</th>
-            <th scope="col">Publication Status</th>
+            <th scope="col" class="d-flex flex-column align-items-center justify-content-center">
+                Publication Status
+                <form id="filter-form" action="{{ route('admin.projects.index') }}" method="GET">
+                    <select class="mt-1 form-control-sm text-center" name="status-filter" id="status-filter">
+                        <option value="" @if($selected === 'all') selected @endif >All</option>
+                        <option value="drafted" @if($selected === 'drafted') selected @endif >Drafted</option>
+                        <option value="published" @if($selected === 'published') selected @endif >Published</option>
+                    </select>
+                </form>
+            </th>
             <th scope="col">Created at</th>
             <th scope="col">Updated at</th>
             <th></th>
@@ -23,7 +32,7 @@
                 <th class="align-middle" scope="row">{{ $project->id }}</th>
                 <td class="align-middle">{{ $project->name }}</td>
                 <td class="align-middle">
-                    <form action="{{ route('admin.projects.toggle-status', $project->id) }}" method="POST">
+                    <form class="mb-0 text-center" action="{{ route('admin.projects.toggle-status', $project->id) }}" method="POST">
                         @method('PATCH')
                         @csrf
                         <button class="btn">
@@ -63,4 +72,14 @@
 
 </div>
     
+@endsection
+
+@section('scripts')
+    <script>
+        const filterForm = document.getElementById('filter-form');
+        const statusFilter = document.getElementById('status-filter');
+        statusFilter.addEventListener('change', () => {
+            filterForm.submit();
+        })
+    </script>
 @endsection

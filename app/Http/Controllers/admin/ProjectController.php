@@ -13,11 +13,25 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::paginate(10);
+        $filter = $request->query('status-filter');
 
-        return view('admin.projects.index', compact('projects'));
+
+        $selected = $filter ? $filter : 'all';
+
+
+        $query = Project::orderBy('updated_at', 'DESC');
+
+        if ($filter) {
+            $filter_value = $filter === 'published' ? 1 : 0;
+            $query->where('is_published', $filter_value);
+        }
+
+        $projects = $query->paginate(10);
+
+
+        return view('admin.projects.index', compact('projects', 'selected'));
     }
 
     /**
