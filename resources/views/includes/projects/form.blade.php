@@ -1,9 +1,9 @@
 
 @if ($project->exists)
-    <form class="card bg-secondary text-light p-5" action="{{ route('admin.projects.update', $project->id) }}" method="POST">
+    <form class="card bg-secondary text-light p-5" action="{{ route('admin.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
 @else
-    <form class="card bg-secondary text-light p-5" action="{{ route('admin.projects.store') }}" method="POST">
+    <form class="card bg-secondary text-light p-5" action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
 @endif
     @csrf
     <div class="row mb-5">
@@ -35,13 +35,8 @@
             @enderror
         </div>
         <div class="col-6 offset-3 px-5 d-flex flex-column">
-            <label class="text-start mb-2" for="image_url">Image Url</label>
-            <input type="text" id="image_url" name="image_url" placeholder="Insert image url" value="{{ old('image_url', $project->image_url) }}" class="form-control @error('image_url') is-invalid @enderror">
-            @error('image_url')
-            <div id="validationServerUsernameFeedback" class="invalid-feedback text-start">
-                {{ $message }}
-            </div>
-            @enderror
+            <label class="text-start mb-2" for="image_url">Image</label>
+            <input type="file" id="image_url" name="image_url" class="form-control">
         </div>
     </div>
     <hr>

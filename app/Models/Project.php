@@ -13,4 +13,16 @@ class Project extends Model
     use SoftDeletes;
 
     protected $fillable = ['name', 'description', 'project_url', 'image_url'];
+
+    public function getImageUrl()
+    {
+        if (substr($this->image_url, 0, 8) === 'projects') return asset('storage/' . $this->image_url);
+        return $this->image_url;
+    }
+
+    public function hasUploadedImage()
+    {
+        if (substr($this->image_url, 0, 8) === 'projects') return true;
+        return false;
+    }
 }

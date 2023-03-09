@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
@@ -39,12 +40,20 @@ class ProjectController extends Controller
             'name' => 'required|string|unique:projects',
             'description' => 'required|string',
             'project_url' => 'required|url',
-            'image_url' => 'url|nullable'
+            'image_url' => 'image|nullable|mimes:jpg,jpeg,bmp,png'
         ]);
 
         $data = $request->all();
 
+
+        if (array_key_exists('image_url', $data)) {
+
+            $image_url = Storage::put('projects', $data['image_url']);
+            $data['image_url'] = $image_url;
+        }
+
         $new_project = new Project();
+
         $new_project->fill($data);
         $new_project->save();
 
@@ -78,10 +87,18 @@ class ProjectController extends Controller
             'name' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
             'description' => 'required|string',
             'project_url' => 'required|url',
-            'image_url' => 'url|nullable'
+            'image_url' => 'image|nullable|mimes:jpg,jpeg,bmp,png'
         ]);
 
         $data = $request->all();
+
+        if (array_key_exists('image_url', $data)) {
+
+            if ($project->hasUploadedImage()) Storage::delete($project->image_url);
+            $image_url = Storage::put('projects', $data['image_url']);
+            $data['image_url'] = $image_url;
+        }
+
         $project->fill($data);
         $project->save();
 
@@ -93,11 +110,17 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+
+        if ($project->hasUploadedImage()) Storage::delete($project->image_url);
+
         $project->delete();
 
         return to_route('admin.projects.index')->with('message', "Il progetto <strong>" . strtoupper($project->name) . "</strong> è stato eliminato con successo")->with('type', 'success');
     }
 
+    /**
+     * Display a listing of trashed resources.
+     */
     public function trash()
     {
         $projects = Project::onlyTrashed()->get();
