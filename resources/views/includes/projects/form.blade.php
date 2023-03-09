@@ -1,4 +1,6 @@
 
+
+
 @if ($project->exists)
     <form class="card bg-secondary text-light p-5" action="{{ route('admin.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
@@ -40,7 +42,7 @@
                 <input type="file" id="image_url" name="image_url" class="form-control">
             </div>
             <div class="col-2">
-                <img id="preview-image" class="img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png" alt="placeholder">
+                <img id="preview-image" class="img-fluid" src="{{ $project->image_url ? $project->getImageUrl() : 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png' }}" alt="placeholder">
             </div>
         </div>
     </div>
