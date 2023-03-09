@@ -17,7 +17,15 @@
             <p><i class="fa-brands fa-github"></i> <a href="{{ $project->project_url }}">{{ ucfirst($project->name) }}</a></p>
         </div>
     </div>
-    <div class="buttons d-flex justify-content-end">
+    <div class="buttons d-flex align-items-center justify-content-end">
+        <form class="d-flex align-items-center" action="{{ route('admin.projects.toggle-status', $project->id) }}" method="POST">
+            @method('PATCH')
+            @csrf
+            <p class="mb-1">Published Status:</p>
+            <button class="btn">
+                <i class="fa-solid fa-3x fa-toggle-{{$project->is_published ? 'on text-success' : 'off text-danger'}}"></i>
+            </button>
+        </form>
         <a class="btn btn-small btn-warning me-2" href="{{ route('admin.projects.edit', $project->id) }}">Edit</a>
         <form class="delete-form" action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" data-project-name="{{ $project->name }}">
             @method('DELETE')

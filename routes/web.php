@@ -22,6 +22,7 @@ Route::get('/', [GuestHomeController::class, 'index'])->name('guest.home');
 Route::middleware(['auth', 'verified'])->name('admin.')->prefix('/admin')->group(function () {
     Route::get('/', [AdminHomeController::class, 'index'])->name('home');
 
+    Route::patch('/projects/{project}/toggle-status', [ProjectController::class, 'toggleStatus'])->name('projects.toggle-status');
     Route::get('/projects/trash', [ProjectController::class, 'trash'])->name('projects.trash.index');
     Route::resource('projects', ProjectController::class);
 });

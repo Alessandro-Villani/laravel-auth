@@ -119,6 +119,20 @@ class ProjectController extends Controller
     }
 
     /**
+     * Toggle pubblication status.
+     */
+    public function toggleStatus(Project $project)
+    {
+        $project->is_published = !$project->is_published;
+
+        $message = $project->is_published ? 'è stato pubblicato con successo.' : 'è stato spostato in bozze.';
+
+        $project->save();
+
+        return redirect()->back()->with('message', "Il progetto <strong>" . strtoupper($project->name) . "</strong> " . $message)->with('type', 'success');
+    }
+
+    /**
      * Display a listing of trashed resources.
      */
     public function trash()
@@ -127,4 +141,6 @@ class ProjectController extends Controller
 
         return view('admin.projects.trash.index', compact('projects'));
     }
+
+    //TODO restore and permanently delete functions
 }

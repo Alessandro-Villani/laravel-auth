@@ -11,6 +11,7 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Project Name</th>
+            <th scope="col">Publication Status</th>
             <th scope="col">Created at</th>
             <th scope="col">Updated at</th>
             <th></th>
@@ -21,6 +22,15 @@
             <tr>
                 <th class="align-middle" scope="row">{{ $project->id }}</th>
                 <td class="align-middle">{{ $project->name }}</td>
+                <td class="align-middle">
+                    <form action="{{ route('admin.projects.toggle-status', $project->id) }}" method="POST">
+                        @method('PATCH')
+                        @csrf
+                        <button class="btn">
+                            <i class="fa-solid fa-2x fa-toggle-{{$project->is_published ? 'on text-success' : 'off text-danger'}}"></i>
+                        </button>
+                    </form>
+                </td>
                 <td class="align-middle">{{ $project->created_at }}</td>
                 <td class="align-middle">{{ $project->updated_at }}</td>
                 <td class="align-middle"> 
@@ -35,7 +45,7 @@
             </tr> 
             @empty
             <tr>
-                <th scope="row" colspan="5" class="text-center">Non ci sono progetti</th>
+                <th scope="row" colspan="6" class="text-center">Non ci sono progetti</th>
             </tr> 
             @endforelse
           
