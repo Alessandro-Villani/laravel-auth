@@ -1,4 +1,6 @@
 
+
+
 @if ($project->exists)
     <form class="card bg-secondary text-light p-5" action="{{ route('admin.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
@@ -34,9 +36,14 @@
             </div>
             @enderror
         </div>
-        <div class="col-6 offset-3 px-5 d-flex flex-column">
-            <label class="text-start mb-2" for="image_url">Image</label>
-            <input type="file" id="image_url" name="image_url" class="form-control">
+        <div class="img-load d-flex align-items-center">
+            <div class="col-6 offset-2 px-5 d-flex flex-column">
+                <label class="text-start mb-2" for="image_url">Image</label>
+                <input type="file" id="image_url" name="image_url" class="form-control">
+            </div>
+            <div class="col-2">
+                <img id="preview-image" class="img-fluid" src="{{ $project->image_url ? $project->getImageUrl() : 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png' }}" alt="placeholder">
+            </div>
         </div>
     </div>
     <hr>
@@ -45,3 +52,23 @@
         <button type="submit" class="btn btn-small btn-success"><i class="fa-regular fa-floppy-disk"></i> Save</button>
     </div>
 </form>
+
+@section('scripts')
+<script>
+const imageInput = document.getElementById('image_url');
+    const imagePreview = document.getElementById('preview-image');
+    imageInput.addEventListener('change', () => {
+        if (imageInput.files && imageInput.files[0]) { 
+            const reader = new FileReader();
+            reader.readAsDataURL(imageInput.files[0]);
+            reader.addEventListener('load', e => {
+                imagePreview.setAttribute('src', e.target.result);
+            });
+        } else {
+            imagePreview.setAttribute('src', 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png');
+        }
+    });
+        
+</script>
+    
+@endsection
