@@ -9,7 +9,7 @@
     <div class="card bg-dark text-light p-5 mb-5">
         <h3 class="mb-3">{{ ucfirst($project->name) }}</h3>
         <div class="card-top clearfix text-start mb-5">
-            <img class="float-start d-block me-3" src="{{ $project->getImageUrl() }}" alt="{{ $project->name }}">
+            <img class="float-start d-block me-3 img-fluid" src="{{ $project->getImageUrl() }}" alt="{{ $project->name }}">
             <p>{{ $project->description }}</p>
         </div>
         <hr>
